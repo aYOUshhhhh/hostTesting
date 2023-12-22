@@ -1,0 +1,31 @@
+body {
+    background-color: lightseagreen;
+}
+.out{
+    width: 15%;
+}
+.in1 button{
+    font-family: 'Times New Roman', Courier, monospace;
+    width: 100%;
+    display: block;
+}
+.out a{
+    display: none;
+    color: darkred;
+    text-decoration: none;
+}
+.in1 button:hover{
+    background-color: blue;
+    font-style: italic;
+    border-radius: 30px;
+    transition: 250ms ease-in;
+    transition: 250ms ease-out;
+    cursor: pointer;
+}
+.in2 a:hover{
+    background-color: white;
+    transition: 150ms ease-in-out;
+}
+.out:hover a{
+    display: block;
+}

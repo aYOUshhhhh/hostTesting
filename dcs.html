@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet"href="style.css"> -->
+    <title>Form to Excel</title>
+</head>
+<body>
+    <h1>Submit Data</h1>
+    <form id="data-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Submitted Data</h2>
+    <table id="data-table" border="1">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </table>
+
+    <button id="download-button">Download as Excel</button>
+
+    <script>
+        const form = document.getElementById('data-form');
+        const table = document.getElementById('data-table');
+        const downloadButton = document.getElementById('download-button');
+        const data = [];
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+
+            // Add data to the data array
+            data.push([name, email]);
+
+            // Clear form fields
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+
+            // Update the displayed table
+            const newRow = table.insertRow();
+            for (let i = 0; i < data[data.length - 1].length; i++) {
+                const cell = newRow.insertCell(i);
+                cell.innerHTML = data[data.length - 1][i];
+            }
+        });
+
+        downloadButton.addEventListener('click', function () {
+            const csvContent = 'data:text/csv;charset=utf-8,' + data.map(row => row.join(',')).join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'data.csv');
+            document.body.appendChild(link);
+            link.click();
+        });
+    </script>
+</body>
+</html>
